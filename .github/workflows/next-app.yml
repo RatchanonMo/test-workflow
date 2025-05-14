@@ -9,7 +9,7 @@ on:
         default: 'main'
         type: choice
         options:
-          - production
+          - main
           - develop
           - staging
 
