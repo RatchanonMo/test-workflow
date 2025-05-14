@@ -1,0 +1,31 @@
+name: Deploy - Next.js App
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: packages/example-next-application
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Deploy the app to DigitalOcean
+        uses: digitalocean/app_action@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
