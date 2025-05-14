@@ -17,20 +17,18 @@ permissions:
   contents: read
 
 jobs:
-  deploy-app:
+  deploy:
+    name: Deploy to DO App Platform
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: packages/example-next-application
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Deploy the app to DigitalOcean
-        uses: digitalocean/app_action@v2
+      - name: Deploy to DigitalOcean
+        uses: digitalocean/app_action@v1.1.5
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          app_name: your-app-name
+          spec_path: ./app.yaml  # or omit if you didn't use a spec file
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
