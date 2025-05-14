@@ -7,6 +7,10 @@ on:
         description: 'Branch to deploy'
         required: true
         default: 'main'
+        options:
+          - production
+          - develop
+          - staging
 
 permissions:
   contents: read
